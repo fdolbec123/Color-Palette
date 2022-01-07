@@ -24,19 +24,39 @@ struct ContentView: View {
             
             HStack{
                 VStack{
-                    Text("Color Palette")
-                        .padding()
-                    Text("Color Palette")
-                        .padding()
-                    Text("Color Palette")
-                        .padding()
-                    Text("Color Palette")
-                        .padding()
-                    Text("Color Palette")
-                        .padding()
+                    ScrollView {
+                        LazyVGrid(columns: [.init(), .init(), .init(), .init(), .init()]) {
+                            ForEach(0..<50) { _ in
+                                Rectangle()
+                                    .frame(width: 100, height: 100)
+                                    .padding(3)
+                            }
+                        }.padding()
+                    }
                 }
-                Text("Plus d'infos")
-                    .padding()
+                //Spacer()
+                GroupBox(label: Label("Informations", systemImage: "info.circle.fill")) {
+                    HStack{
+                        VStack(alignment: .leading, spacing: nil, content:{
+                            RoundedRectangle(cornerRadius: 25)
+                                .frame(width: 100, height: 100)
+                                .padding()
+                            Text("Nom: ")
+                                .padding()
+                        })
+                        //Spacer()
+                        VStack(alignment: .leading, spacing: nil, content:{
+                            Text("Code hexadecimal:")
+                                .padding()
+                            Text("Behr: ")
+                                .padding()
+                            Text("Betonel: ")
+                                .padding()
+                            Text("Sico: ")
+                                .padding()
+                        })
+                    }
+                }.padding()
             }
         }
     }
