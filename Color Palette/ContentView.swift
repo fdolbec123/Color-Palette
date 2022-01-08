@@ -31,22 +31,28 @@ struct ContentView: View {
                                     .frame(width: 100, height: 100)
                                     .padding(3)
                             }
-                        }.padding()
+                        }
+                            .frame(minWidth: 520)
+                            .padding()
                     }
                 }
+                    .frame(maxHeight: 1000)
+                    .padding()
                 //Spacer()
                 GroupBox(label: Label("Informations", systemImage: "info.circle.fill")) {
                     HStack{
-                        VStack(alignment: .leading, spacing: nil, content:{
+                        VStack(alignment: .center, spacing: nil, content:{
                             RoundedRectangle(cornerRadius: 25)
                                 .frame(width: 100, height: 100)
                                 .padding()
-                            Text("Nom: ")
+                            Text("Nom: Robe de princesse")
+                                .frame(minWidth: 175)
                                 .padding()
                         })
                         //Spacer()
                         VStack(alignment: .leading, spacing: nil, content:{
-                            Text("Code hexadecimal:")
+                            Text("Code hexadecimal: #FFFFFF")
+                                .frame(minWidth: 175)
                                 .padding()
                             Text("Behr: ")
                                 .padding()
