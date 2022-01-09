@@ -21,7 +21,7 @@ struct ContentView: View {
                     .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 20))
             }
             .padding(EdgeInsets(top: 30, leading: 10, bottom: 5, trailing: 10))
-            
+            Divider()
             HStack{
                 VStack{
                     ScrollView {
@@ -38,6 +38,7 @@ struct ContentView: View {
                 }
                     .frame(maxHeight: 1000)
                     .padding()
+                Divider()
                 //Spacer()
                 GroupBox(label: Label("Informations", systemImage: "info.circle.fill")) {
                     HStack{
