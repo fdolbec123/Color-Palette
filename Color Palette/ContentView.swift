@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var valeur_de_recherche = "Valeur"
     var body: some View {
         VStack{
             HStack{
-                TextField("Recherche...", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                TextField("Recherche...", text: $valeur_de_recherche)
                     .frame(minWidth: 350)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 10))
                 Button("Chercher") {
