@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var valeur_de_recherche = "Valeur"
+    @State var valeur_de_recherche = ""
     var body: some View {
         VStack{
             HStack{
