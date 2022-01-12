@@ -18,12 +18,14 @@ struct Color_PaletteApp: App {
             if let colors = colorAssembled{
                 print("Couleurs assemblées")
                 print(colors)
-                print("Test retreving first element of array:")
-                print(colors[0])
-                print(type(of: colors[0]))
+//                print("Test retreving first element of array:")
+//                print(colors[0])
+                
             } else if let error = error{
                 print(error)
             }
+            //print("Ceci  est un  test pour un array:")
+            //print()
         }
     }
     var body: some Scene {
@@ -65,6 +67,8 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
     var betonelCodeValue: String?
     var sicoCodeValue: String?
     var couleursInfos = [paletteDeCouleur]()
+    var test_palette: Array<Any> = Array()
+    var palette_avec_nom: Dictionary<String, Array<Any>> = [:]
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]){
         switch elementName{
         case "nuance":
@@ -72,6 +76,8 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
         case "couleur":
             inCouleur = true
             couleurValue = ""
+            //print(attributeDict["nom"]! as String)
+            couleurValue = attributeDict["nom"]! as String
         case "rgb":
             inRGB = true
             rgbValue = ""
@@ -110,7 +116,20 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
             //print(betonelCodeValue)
             //print(sicoCodeValue)
             let couleurInfos = paletteDeCouleur(rgbValue: rgbValue, hexValue: hexValue, behrCode: behrCodeValue, betonelCode: betonelCodeValue, sicoCode: sicoCodeValue)
+            //print(couleurValue!)
+            let palette_de_test =  [rgbValue, hexValue, behrCodeValue, betonelCodeValue, sicoCodeValue]
+            let test_palette_avec_nom_inclus = [couleurValue!: palette_de_test]
+//            print(palette_de_test)
+//            print("test")
+//            print(test_palette_avec_nom_inclus)
+            test_palette.append(palette_de_test)
+//            print("Une fois append")
+//            print(test_palette)
+            //print(couleurInfos)
+            //print("In parser")
             couleursInfos.append(couleurInfos)
+            palette_avec_nom[couleurValue!] = palette_de_test
+            //print("Ceci est la palette avec leur nom respectif: ", palette_avec_nom)
         case "rgb":
             inRGB = false
         case "hex":
@@ -126,6 +145,9 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
         }
     }
     func parser(_ parser:XMLParser, foundCharacters donnee:String){
+//        if inCouleur{
+//            print(couleurValue!)
+//        }
         if inRGB{
             rgbValue?.append(donnee)
         }
@@ -161,7 +183,7 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
         }
 }
 //================FUNCTIONS=====================
-func fetchXMLDataFile(completion: @escaping ([paletteDeCouleur]?, Error?)
+func fetchXMLDataFile(completion: @escaping (Dictionary<String, Array<Any>>?, Error?) //[paletteDeCouleur]  à la place de Array
                       -> Void){
     let session = URLSession.shared
     print("Before URL")
@@ -182,8 +204,12 @@ func fetchXMLDataFile(completion: @escaping ([paletteDeCouleur]?, Error?)
         parser.delegate = paletteBuilder
         parser.parse()
         let colorAssembled = paletteBuilder.couleursInfos
+        let colorTest = paletteBuilder.test_palette
+        let palette_with_names = paletteBuilder.palette_avec_nom
         //print(colorAssembled)
-        completion(colorAssembled, nil)
+        //completion(colorAssembled, nil)
+//        completion(colorTest, nil)
+        completion(palette_with_names, nil)
     }
     dataTask.resume()
 }
