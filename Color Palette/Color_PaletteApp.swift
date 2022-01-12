@@ -5,6 +5,16 @@
 //  Created by Francis Dolbec on 2022-01-03.
 //
 
+
+// TODO LIST:
+// - CLEANING!!!
+// - FIND A WAY TO PASS THE DICTIONARY TO THE INTERFACE
+// - OPTIONNAL: ADD "NUANCE" INFOS
+
+
+
+
+
 import SwiftUI
 import Foundation
 
