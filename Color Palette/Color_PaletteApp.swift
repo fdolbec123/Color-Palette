@@ -128,7 +128,7 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
             let couleurInfos = paletteDeCouleur(rgbValue: rgbValue, hexValue: hexValue, behrCode: behrCodeValue, betonelCode: betonelCodeValue, sicoCode: sicoCodeValue)
             //print(couleurValue!)
             let palette_de_test =  [rgbValue, hexValue, behrCodeValue, betonelCodeValue, sicoCodeValue]
-            let test_palette_avec_nom_inclus = [couleurValue!: palette_de_test]
+            //let test_palette_avec_nom_inclus = [couleurValue!: palette_de_test]
 //            print(palette_de_test)
 //            print("test")
 //            print(test_palette_avec_nom_inclus)
@@ -207,14 +207,14 @@ func fetchXMLDataFile(completion: @escaping (Dictionary<String, Array<Any>>?, Er
             print(error ?? "Response inattendu")
             return
         }
-        let dataAsString = String(data: data, encoding: .utf8)!
+        //let dataAsString = String(data: data, encoding: .utf8)!
         //print(dataAsString)
         let parser = XMLParser(data: data)
         let paletteBuilder = paletteDeCouleurBuilder()
         parser.delegate = paletteBuilder
         parser.parse()
-        let colorAssembled = paletteBuilder.couleursInfos
-        let colorTest = paletteBuilder.test_palette
+        //let colorAssembled = paletteBuilder.couleursInfos
+        //let colorTest = paletteBuilder.test_palette
         let palette_with_names = paletteBuilder.palette_avec_nom
         //print(colorAssembled)
         //completion(colorAssembled, nil)
