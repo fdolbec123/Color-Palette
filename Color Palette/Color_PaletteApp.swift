@@ -7,11 +7,8 @@
 
 
 // TODO LIST:
-// - CLEANING!!!
 // - FIND A WAY TO PASS THE DICTIONARY TO THE INTERFACE
 // - OPTIONNAL: ADD "NUANCE" INFOS
-
-
 
 
 
@@ -28,14 +25,9 @@ struct Color_PaletteApp: App {
             if let colors = colorAssembled{
                 print("Couleurs assemblées")
                 print(colors)
-//                print("Test retreving first element of array:")
-//                print(colors[0])
-                
             } else if let error = error{
                 print(error)
             }
-            //print("Ceci  est un  test pour un array:")
-            //print()
         }
     }
     var body: some Scene {
@@ -86,7 +78,6 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
         case "couleur":
             inCouleur = true
             couleurValue = ""
-            //print(attributeDict["nom"]! as String)
             couleurValue = attributeDict["nom"]! as String
         case "rgb":
             inRGB = true
@@ -120,26 +111,11 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
                 let betonelCodeValue = betonelCodeValue,
                 let sicoCodeValue = sicoCodeValue
             else {break}
-            //print(rgbValue)
-            //print(hexValue)
-            //print(behrCodeValue)
-            //print(betonelCodeValue)
-            //print(sicoCodeValue)
             let couleurInfos = paletteDeCouleur(rgbValue: rgbValue, hexValue: hexValue, behrCode: behrCodeValue, betonelCode: betonelCodeValue, sicoCode: sicoCodeValue)
-            //print(couleurValue!)
             let palette_de_test =  [rgbValue, hexValue, behrCodeValue, betonelCodeValue, sicoCodeValue]
-            //let test_palette_avec_nom_inclus = [couleurValue!: palette_de_test]
-//            print(palette_de_test)
-//            print("test")
-//            print(test_palette_avec_nom_inclus)
             test_palette.append(palette_de_test)
-//            print("Une fois append")
-//            print(test_palette)
-            //print(couleurInfos)
-            //print("In parser")
             couleursInfos.append(couleurInfos)
             palette_avec_nom[couleurValue!] = palette_de_test
-            //print("Ceci est la palette avec leur nom respectif: ", palette_avec_nom)
         case "rgb":
             inRGB = false
         case "hex":
@@ -155,9 +131,6 @@ class paletteDeCouleurBuilder: NSObject, XMLParserDelegate{
         }
     }
     func parser(_ parser:XMLParser, foundCharacters donnee:String){
-//        if inCouleur{
-//            print(couleurValue!)
-//        }
         if inRGB{
             rgbValue?.append(donnee)
         }
@@ -207,18 +180,11 @@ func fetchXMLDataFile(completion: @escaping (Dictionary<String, Array<Any>>?, Er
             print(error ?? "Response inattendu")
             return
         }
-        //let dataAsString = String(data: data, encoding: .utf8)!
-        //print(dataAsString)
         let parser = XMLParser(data: data)
         let paletteBuilder = paletteDeCouleurBuilder()
         parser.delegate = paletteBuilder
         parser.parse()
-        //let colorAssembled = paletteBuilder.couleursInfos
-        //let colorTest = paletteBuilder.test_palette
         let palette_with_names = paletteBuilder.palette_avec_nom
-        //print(colorAssembled)
-        //completion(colorAssembled, nil)
-//        completion(colorTest, nil)
         completion(palette_with_names, nil)
     }
     dataTask.resume()
